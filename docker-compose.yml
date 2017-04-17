@@ -1,0 +1,15 @@
+version: '2'
+services:
+  jenkins:
+    image: 'jenkins:2.46.1-alpine'
+    ports:
+      - '80:8080'
+      - '443:8443'
+      - '50000:50000'
+    links:
+      - "elasticsearch"
+  elasticsearch:
+    image: 'elasticsearch:alpine'
+    ports:
+      - '9200:9200'
+      - '9300:9300'
