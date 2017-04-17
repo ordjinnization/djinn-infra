@@ -16,8 +16,12 @@ Now just run `docker-compose up -d`, this will launch all containers.
 ## Tools
 There are a number of containers launched:
 
+  * Kibana
+    * Location : http://localhost
+    * Credentials : elastic/changeme
+    
   * Jenkins 
-    * Location : `http://localhost`
+    * Location : http://localhost:8080
     * Credentials: admin/(see `docker logs jenkins` for password)
     
   * Rabbitmq   
