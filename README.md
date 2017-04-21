@@ -19,25 +19,25 @@ There are a number of containers launched:
   * Kibana
     * Location : http://localhost
     * Credentials : elastic/changeme
-    
-  * Jenkins 
+
+  * Jenkins
     * Location : http://localhost:8080
     * Credentials: admin/(see `docker logs jenkins` for password)
-    
-  * Rabbitmq   
+
+  * Rabbitmq
     * Location : http://localhost:15672
     * Credentials : admin/admin
-    
+
   * Logstash
     * Location : http://localhost:9600
-  
+
   * Elasticsearch
     * Location : http://localhost:9200
     * Credentials : elastic/changeme
 
 # Jenkins Config
 Currently there a few manual steps to configure jenkins.
-    
+
     1. Install the `Mask Passwords Plugin` and `Logstash` plugins
     2. Go to `Manage Jenkins -> Global Tool Configuration` and modify Logstash plugin details
         * Host name : rabbitmq
