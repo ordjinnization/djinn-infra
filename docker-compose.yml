@@ -42,3 +42,52 @@ services:
       - ELASTICSEARCH_PASSWORD=changeme
     links:
       - 'elasticsearch'
+
+  # Monitoring
+  cadvisor:
+    container_name: "cadvisor"
+    image: google/cadvisor
+    ports:
+      - "8081:8080"
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:rw"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker/:/var/lib/docker:ro"
+  grafana:
+    container_name: "grafana"
+    image: grafana/grafana:4.2.0
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - HTTP_USER=admin
+      - HTTP_PASS=admin
+    links:
+      - "prometheus"
+  prometheus:
+    container_name: "prometheus"
+    build: "prometheus/"
+    command:
+      - "-config.file=/etc/prometheus/prometheus.yml"
+    ports:
+      - "9090:9090"
+    links:
+      - "cadvisor"
+      - "node-exporter"
+  node-exporter:
+    container_name: node-exporter
+    image: prom/node-exporter
+    volumes:
+      - /proc:/host/proc
+      - /sys:/host/sys
+      - /:/rootfs
+    command:
+      - '-collector.procfs=/host/proc'
+      - '-collector.sysfs=/host/sysfs'
+      - '-collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
+    expose:
+      - 9100
+    ports:
+      - "9100:9100"
+
